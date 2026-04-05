@@ -98,7 +98,7 @@ cp .env.example .env
 npm run dev
 ```
 
-Backend runs at `http://localhost:4000`
+Backend runs at `http://localhost:3001`
 
 ### 3. Frontend setup
 
@@ -108,7 +108,7 @@ Open a new terminal:
 cd frontend
 npm install
 cp .env.local.example .env.local
-# Set NEXT_PUBLIC_API_URL=http://localhost:4000/api
+# Set NEXT_PUBLIC_API_URL=http://localhost:3001/api
 npm run dev
 ```
 
@@ -134,7 +134,7 @@ Frontend runs at `http://localhost:3000`
 
 | Variable                | Description                    | Example                          |
 |-------------------------|--------------------------------|----------------------------------|
-| `NEXT_PUBLIC_API_URL`   | Base URL of the backend API    | `http://localhost:4000/api`      |
+| `NEXT_PUBLIC_API_URL`   | Base URL of the backend API    | `http://localhost:3001/api`      |
 
 > **Never commit `.env` or `.env.local` to Git.** Both are covered by `.gitignore`.
 
@@ -207,7 +207,7 @@ docker-compose down
 
 Services:
 - Frontend: `http://localhost:3000`
-- Backend: `http://localhost:4000`
+- Backend: `http://localhost:3001`
 - MongoDB: `localhost:27017`
 
 ---
@@ -265,6 +265,4 @@ feedpulse/
 
 ---
 
-## License
 
-MIT
