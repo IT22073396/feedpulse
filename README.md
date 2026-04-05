@@ -58,15 +58,17 @@ FeedPulse is a full-stack B2B feedback management platform that lets users submi
 
 ## Screenshots
 
-> _Add at least 2 screenshots here after running the app._
-
 **Public Feedback Form** (`/`)
 
-![Feedback Form Screenshot](./screenshots/feedback-form.png)
+![Feedback Form](./screenshots/FeedbackForm.png)
 
-**Admin Dashboard** (`/dashboard`)
+**Admin Dashboard — Stats & AI Weekly Themes** (`/dashboard`)
 
-![Admin Dashboard Screenshot](./screenshots/admin-dashboard.png)
+![Admin Dashboard](./screenshots/Admin%20Dashboard%20(full%20view%20with%20stats%20+%20AI%20themes).png)
+
+**Admin Dashboard — Feedback Cards** (`/dashboard`)
+
+![Admin Dashboard Feedback Cards](./screenshots/Admin%20Dashboard%20(feedback%20cards.png)
 
 ---
 
