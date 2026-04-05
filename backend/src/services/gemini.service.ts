@@ -42,7 +42,7 @@ export async function analyzeFeedback(
   title: string,
   description: string
 ): Promise<GeminiAnalysis> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
   const prompt = `You are a product feedback analyser.
 Analyse this feedback and return ONLY valid JSON. No markdown, no explanation.
@@ -68,7 +68,7 @@ export async function generateWeeklySummary(
 ): Promise<{
   themes: { theme: string; count: number; description: string }[];
 }> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
   const prompt = `Analyse these product feedback summaries from the last 7 days:
 
