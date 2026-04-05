@@ -194,26 +194,31 @@ export async function getStats(req: Request, res: Response): Promise<void> {
 ========================================================= */
 // GET /api/feedback/summary
 export async function getAiSummary(req: Request, res: Response): Promise<void> {
-  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  try {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
-  const recent = await Feedback.find({
-    createdAt: { $gte: sevenDaysAgo },
-    ai_processed: true,
-  })
-    .select('ai_summary ai_tags')
-    .lean();
+    const recent = await Feedback.find({
+      createdAt: { $gte: sevenDaysAgo },
+      ai_processed: true,
+    })
+      .select('ai_summary ai_tags')
+      .lean();
 
-  if (recent.length === 0) {
-    sendResponse(res, 200, { themes: [] }, 'No processed feedback in last 7 days');
-    return;
+    if (recent.length === 0) {
+      sendResponse(res, 200, { themes: [] }, 'No processed feedback in last 7 days');
+      return;
+    }
+
+    const summaries = recent.map(f => f.ai_summary).filter((s): s is string => Boolean(s));
+    const tags = recent.flatMap(f => f.ai_tags ?? []);
+
+    const result = await generateWeeklySummary(summaries, tags);
+
+    sendResponse(res, 200, result, 'Weekly summary generated');
+  } catch (err: any) {
+    console.error('AI summary failed:', err);
+    sendResponse(res, 503, null, 'AI service error', err.message ?? 'Failed to contact AI service');
   }
-
-  const summaries = recent.map(f => f.ai_summary).filter(Boolean);
-  const tags = recent.flatMap(f => f.ai_tags ?? []);
-
-  const result = await generateWeeklySummary(summaries, tags);
-
-  sendResponse(res, 200, result, 'Weekly summary generated');
 }
 
 /* =========================================================
@@ -221,23 +226,28 @@ export async function getAiSummary(req: Request, res: Response): Promise<void> {
 ========================================================= */
 // POST /api/feedback/:id/reanalyse
 export async function reanalyse(req: Request, res: Response): Promise<void> {
-  const feedback = await Feedback.findById(req.params.id);
+  try {
+    const feedback = await Feedback.findById(req.params.id);
 
-  if (!feedback) {
-    sendResponse(res, 404, null, 'Not found', 'Not found');
-    return;
+    if (!feedback) {
+      sendResponse(res, 404, null, 'Not found', 'Not found');
+      return;
+    }
+
+    const analysis = await analyzeFeedback(feedback.title, feedback.description);
+
+    feedback.ai_category = analysis.category;
+    feedback.ai_sentiment = analysis.sentiment;
+    feedback.ai_priority = analysis.priority_score;
+    feedback.ai_summary = analysis.summary;
+    feedback.ai_tags = analysis.tags;
+    feedback.ai_processed = true;
+
+    await feedback.save();
+
+    sendResponse(res, 200, feedback, 'AI analysis re-triggered');
+  } catch (err: any) {
+    console.error('Re-analyse failed:', err);
+    sendResponse(res, 503, null, 'AI service error', err.message ?? 'Failed to contact AI service');
   }
-
-  const analysis = await analyzeFeedback(feedback.title, feedback.description);
-
-  feedback.ai_category = analysis.category;
-  feedback.ai_sentiment = analysis.sentiment;
-  feedback.ai_priority = analysis.priority_score;
-  feedback.ai_summary = analysis.summary;
-  feedback.ai_tags = analysis.tags;
-  feedback.ai_processed = true;
-
-  await feedback.save();
-
-  sendResponse(res, 200, feedback, 'AI analysis re-triggered');
 }
