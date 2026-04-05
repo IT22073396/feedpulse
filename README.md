@@ -2,13 +2,15 @@
 
 > Collect, analyse, and manage product feedback with the power of Google Gemini AI.
 
-![FeedPulse](https://img.shields.io/badge/Status-Active-brightgreen) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![Node.js](https://img.shields.io/badge/Node.js-20-green) ![MongoDB](https://img.shields.io/badge/MongoDB-7-green) ![Gemini](https://img.shields.io/badge/Google%20Gemini-1.5%20Flash-blue) ![Docker](https://img.shields.io/badge/Docker-Compose-blue)
+![FeedPulse](https://img.shields.io/badge/Status-Active-brightgreen) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![Node.js](https://img.shields.io/badge/Node.js-20-green) ![MongoDB](https://img.shields.io/badge/MongoDB-7-green) ![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-blue) ![Docker](https://img.shields.io/badge/Docker-Compose-blue)
 
 ---
 
 ## Description
 
-FeedPulse is a full-stack B2B feedback management platform that lets users submit product feedback through a public form, and gives admins an AI-enriched dashboard to triage, filter, and act on that feedback. Every submission is automatically analysed by Google Gemini 1.5 Flash — returning a sentiment score, priority rating (1–10), category classification, one-sentence summary, and keyword tags — all stored alongside the original feedback in MongoDB.
+FeedPulse is a full-stack B2B feedback management platform that lets users submit product feedback through a public form, and gives admins an AI-enriched dashboard to triage, filter, and act on that feedback. Every submission is automatically analysed by Google Gemini AI — returning a sentiment score, priority rating (1–10), category classification, one-sentence summary, and keyword tags — all stored alongside the original feedback in MongoDB.
+
+> **Note on Gemini model:** The assignment specifies `gemini-1.5-flash`, however Google has deprecated and removed this model — it returns a 404 on both the `v1` and `v1beta` API endpoints as of April 2026. This project uses `gemini-2.5-flash` instead, which is the current recommended free-tier model in Google AI Studio and produces identical output. The integration logic, prompt structure, and JSON response parsing are unchanged.
 
 ---
 
@@ -19,7 +21,7 @@ FeedPulse is a full-stack B2B feedback management platform that lets users submi
 | Frontend  | Next.js 14 (App Router), React, TypeScript, Tailwind CSS |
 | Backend   | Node.js, Express, TypeScript      |
 | Database  | MongoDB 7 + Mongoose              |
-| AI        | Google Gemini 1.5 Flash           |
+| AI        | Google Gemini 2.5 Flash           |
 | Auth      | JWT (`jsonwebtoken`)              |
 | DevOps    | Docker + Docker Compose           |
 
