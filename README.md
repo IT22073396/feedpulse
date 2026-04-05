@@ -221,17 +221,8 @@ Password: admin123
 
 > Change these in your `.env` before deploying anywhere.
 
----
 
-## What I Would Build Next
 
-- **Email notifications** — notify admins when high-priority feedback arrives (Nodemailer / SendGrid)
-- **Upvoting** — let users vote on existing feedback to surface the most-wanted features
-- **Analytics dashboard** — charts for sentiment trends, category breakdown, and submission volume over time
-- **Webhooks** — push feedback events to Slack or other tools on status change
-- **RBAC** — role-based access control for multi-user teams (viewer, editor, admin)
-- **Public roadmap** — show resolved/in-review items publicly to close the feedback loop
-- **Export** — download filtered feedback as CSV for stakeholder reports
 
 ---
 
