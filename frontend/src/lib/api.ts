@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Feedback, FeedbackListResponse, Stats, GeminiTheme } from '@/types';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api',
